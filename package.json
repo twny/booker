@@ -1,0 +1,18 @@
+{
+  "name": "booker",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "src/client",
+    "src/server"
+  ],
+  "scripts": {
+    "build": "yarn workspaces run build",
+    "start": "yarn workspaces run start",
+    "test": "yarn workspaces run test"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.2",
+    "ts-node": "^10.2.1"
+  }
+}
