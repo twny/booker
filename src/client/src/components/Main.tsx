@@ -1,6 +1,7 @@
 import Clerk from "@clerk/clerk-js";
 import type { Component } from 'solid-js';
 import { createEffect } from 'solid-js';
+import booker from '../assets/booker.png';
 
 import styles from '../styles/Main.module.css';
 
@@ -29,6 +30,7 @@ const Main: Component = () => {
 
   return (
     <div class={styles.Main}>
+      <img src={booker} alt="Booker" />
       <header class={styles.header}>Hey</header>
       {clerk.user ? (
         <div ref={(el) => (userButtonDiv = el as HTMLDivElement)} /> /* This div will contain the UserButton component */
