@@ -1,21 +1,41 @@
-import express from "express";
-import Stripe from "stripe";
-
-const stripe = new Stripe("your_stripe_secret_key", { apiVersion: '2022-11-15' }); // Replace with your actual Stripe secret key
-
+import express from 'express';
+import Stripe from 'stripe';
 const router = express.Router();
 
-// api/payments
-router.post("/payments", async (req, res) => {
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+
+if (!STRIPE_SECRET_KEY) {
+    throw new Error("The STRIPE_SECRET_KEY environment variable is not set.");
+}
+
+const stripe = new Stripe(STRIPE_SECRET_KEY, {
+    apiVersion: '2022-11-15',
+});
+
+router.post('/api/payments', async (req, res) => {
   try {
+    const { amount, currency } = req.body; // You should validate and sanitize these values
+
+    // Create a new PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: 1000, // Example amount in cents, e.g. $10.00
-      currency: "usd",
+      amount,  // This is in the smallest currency unit. For example, 1000 equals $10.00
+      currency,
     });
 
-    res.json({ paymentIntent });
-  } catch (err) {
-    res.status(500).json({ error: "Unable to create payment intent" });
+
+    // DEBUG
+    console.log('PaymentIntent created:', paymentIntent);  // Log the entire PaymentIntent object
+
+    // Respond with the client secret and some other necessary details
+    res.json({
+      clientSecret: paymentIntent.client_secret,
+      amount: paymentIntent.amount,
+      currency: paymentIntent.currency,
+    });
+
+  } catch (error) {
+    console.error('Error creating PaymentIntent:', error);
+    res.status(500).send({ error: 'Failed to create PaymentIntent' });
   }
 });
 

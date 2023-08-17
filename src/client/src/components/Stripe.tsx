@@ -10,6 +10,8 @@ let stripe: any;
 let card: any;
 let elements: any;
 
+const API_ENDPOINT = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api/payments' : '/api/payments';
+
 const Stripe: Component = () => {
   let cardDiv: HTMLDivElement;
 
@@ -22,6 +24,36 @@ const Stripe: Component = () => {
     card.mount(cardDiv);
   });
 
+  const handlePaymentSubmit = async () => {
+    // Request PaymentIntent from backend
+    const response = await fetch(API_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ amount: 1000, currency: 'usd' })  // Example amount and currency, adjust as needed
+    });
+
+    const paymentIntent = await response.json();
+
+    // Confirm the payment using the client secret from the PaymentIntent
+    const result = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
+      payment_method: {
+        card: card,
+      }
+    });
+
+    if (result.error) {
+      console.error(result.error.message);
+      // Handle error here
+    } else {
+      if (result.paymentIntent.status === 'succeeded') {
+        console.log('Payment succeeded!');
+        // Handle successful payment here
+      }
+    }
+  };
+
   onCleanup(() => {
     if (card) card.unmount();
   });
@@ -30,6 +62,7 @@ const Stripe: Component = () => {
     <div class={styles.stripeContainer}>
       <h2>Payment Information</h2>
       <div ref={(el) => (cardDiv = el as HTMLDivElement)} class={styles.cardElement} />
+      <button onclick={handlePaymentSubmit} class={styles.submitButton}>Submit Payment</button>
     </div>
   );
 };
