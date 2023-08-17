@@ -1,6 +1,6 @@
-import Clerk from "@clerk/clerk-js";
-import { createEffect, onCleanup } from 'solid-js';
+import { createEffect, onCleanup, createSignal } from 'solid-js';
 import type { Component } from 'solid-js';
+import Clerk from "@clerk/clerk-js";
 
 import styles from '../styles/Clerk.module.css'; 
 
@@ -15,12 +15,17 @@ const ClerkComponent: Component = () => {
   let signUpDiv: HTMLDivElement;
   let userButtonDiv: HTMLDivElement;
 
+  const [showSignUp, setShowSignUp] = createSignal(false); // By default, show the sign-in form
+
   createEffect(() => {
     if (clerk.user) {
       if (userButtonDiv) clerk.mountUserButton(userButtonDiv);
     } else {
-      if (signInDiv) clerk.mountSignIn(signInDiv);
-      if (signUpDiv) clerk.mountSignUp(signUpDiv);
+      if (showSignUp()) {
+        if (signUpDiv) clerk.mountSignUp(signUpDiv);
+      } else {
+        if (signInDiv) clerk.mountSignIn(signInDiv);
+      }
     }
   });
 
@@ -34,8 +39,17 @@ const ClerkComponent: Component = () => {
         <div ref={(el) => (userButtonDiv = el as HTMLDivElement)} />
       ) : (
         <>
-          <div ref={(el) => (signInDiv = el as HTMLDivElement)} class={styles.signIn} />
-          <div ref={(el) => (signUpDiv = el as HTMLDivElement)} class={styles.signUp} />
+          {showSignUp() ? (
+            <>
+              <div ref={(el) => (signUpDiv = el as HTMLDivElement)} class={styles.signUp} />
+              <button onclick={() => setShowSignUp(false)}>Already have an account? Sign in!</button>
+            </>
+          ) : (
+            <>
+              <div ref={(el) => (signInDiv = el as HTMLDivElement)} class={styles.signIn} />
+              <button onclick={() => setShowSignUp(true)}>Don't have an account? Sign up!</button>
+            </>
+          )}
         </>
       )}
     </>
