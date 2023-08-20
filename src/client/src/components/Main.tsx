@@ -17,7 +17,7 @@ const Main: Component = () => {
   return (
     <div class={styles.Main}>
       <img src={booker} alt="Booker" />
-      <button onclick={allMyHomies} class={styles.header}>Hey</button>
+      <button onclick={allMyHomies} class={styles.header}>Who is using booker?</button>
       
       {/* Conditionally render the image based on the state */}
       {showHomies() && <img src={homies} alt="homies"/>}
