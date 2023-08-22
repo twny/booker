@@ -12,7 +12,7 @@ const stripe = new Stripe(STRIPE_SECRET_KEY, {
     apiVersion: '2022-11-15',
 });
 
-router.post('/api/payments', async (req, res) => {
+router.post('/payments', async (req, res) => {
   try {
     const { amount, currency } = req.body; // You should validate and sanitize these values
 
