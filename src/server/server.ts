@@ -1,6 +1,7 @@
 import express from 'express';
 import helloRouter from './api/hello';
 import stripeRouter from './api/stripe';
+import usersRouter from './api/users';
 import dotenv from 'dotenv';
 import path from 'path';
 
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, '../../dist/client')));
 // Register the route handlers
 app.use('/api', helloRouter);
 app.use('/api', stripeRouter);
+app.use('/api', usersRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

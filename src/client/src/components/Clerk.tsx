@@ -2,7 +2,7 @@ import { createEffect, onCleanup, createSignal } from 'solid-js';
 import type { Component } from 'solid-js';
 import Clerk from "@clerk/clerk-js";
 
-import styles from '../styles/Clerk.module.css'; 
+import styles from '../styles/Clerk.module.css';
 
 const publishableKey = "pk_test_cHJlY2lvdXMtcmVwdGlsZS0zMy5jbGVyay5hY2NvdW50cy5kZXYk";
 const clerk = new Clerk(publishableKey);
@@ -29,9 +29,37 @@ const ClerkComponent: Component = () => {
     }
   });
 
+  createEffect(() => {
+    if (clerk.user) {
+      console.log("process userr create effect")
+      // Send user data to backend to determine the next steps
+      processUser(clerk.user.id, clerk.user.primaryEmailAddress?.emailAddress);
+    }
+  });
+
   onCleanup(() => {
     // Perform any cleanup tasks if necessary
   });
+
+  async function processUser(userId: string, email: string | undefined) {
+    console.log("hellllooooo in processUser")
+    // TODO
+    // fetch('/api/users') -> localhost:3000
+    // how to get the frontend to dynamically post to the correct server
+    const response = await fetch('/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId: userId, email: email })
+    });
+
+    if (response.status === 201) {
+      // Prompt the user to create a handle
+      // Maybe use a modal or navigate them to a handle creation page
+    } else if (response.status === 400) {
+      // Handle different statuses as needed, e.g., email not verified
+      // Redirect or inform the user accordingly
+    }
+  }
 
   return (
     <>
