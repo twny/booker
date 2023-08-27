@@ -4,13 +4,21 @@ import stripeRouter from './api/stripe';
 import usersRouter from './api/users';
 import dotenv from 'dotenv';
 import path from 'path';
+import {LooseAuthProp} from "@clerk/clerk-sdk-node";
 
 dotenv.config();
 
 const app = express();
-// const port = process.env.PORT || 3000;
-const port = 8080;
 
+// needed for clerks auth middleware
+declare global {
+  namespace Express {
+    interface Request extends LooseAuthProp {
+    }
+  }
+}
+
+const port = 8080;
 app.use(express.json());
 
 // Serve static assets from the client build directory
