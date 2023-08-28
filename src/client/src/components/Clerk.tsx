@@ -43,23 +43,22 @@ const ClerkComponent: Component = () => {
 
   async function processUser(userId: string, email: string | undefined) {
     console.log("hellllooooo in processUser")
-    // TODO
-    // fetch('/api/users') -> localhost:3000
-    // how to get the frontend to dynamically post to the correct server
+    // TODO: Header with bearer token is only needed in dev mode (some cors issue), maybe there is a better way to do this
     const response = await fetch('/api/users', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId: userId, email: email })
+      headers: {'Content-Type': 'application/json', Authorization: `Bearer ${await clerk.session?.getToken()}`},
+      body: JSON.stringify({userId: userId, email: email})
     });
 
     if (response.status === 201) {
-      // Prompt the user to create a handle
-      // Maybe use a modal or navigate them to a handle creation page
-    } else if (response.status === 400) {
-      // Handle different statuses as needed, e.g., email not verified
-      // Redirect or inform the user accordingly
+      // TODO: do something useful here
+      console.log("User created")
+
+    } else if (response.status === 409) {
+      console.log("User already exists")
     }
   }
+
 
   return (
     <>
