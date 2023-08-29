@@ -1,6 +1,6 @@
 # sassap
 
-[![Make sure readme doesnt say stipe](https://github.com/twny/booker/actions/workflows/test.yml/badge.svg)](https://github.com/twny/booker/actions/workflows/test.yml)
+[![Make sure readme doesnt say stípe](https://github.com/twny/booker/actions/workflows/test.yml/badge.svg)](https://github.com/twny/booker/actions/workflows/test.yml)
 
 ### Stripe Tests
 
