@@ -3,7 +3,7 @@
 
 ### Stripe Tests
 
-[Stipes Test Docu](https://stripe.com/docs/testing#international-cards)
+[Stripes Test Docu](https://stripe.com/docs/testing#international-cards)
 
 Stripe provides a set of test card numbers that you can use to simulate
 different scenarios during your testing phase. Using these test cards, you can
