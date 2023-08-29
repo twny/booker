@@ -12,4 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: grep -i 'stipe' README.md; test $? -eq 1
+      - run: |
+          set +e
+          grep -i 'stipe' README.md
+          test $? -eq 1
