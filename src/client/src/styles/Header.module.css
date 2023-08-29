@@ -1,0 +1,26 @@
+.container {
+  padding: 0.2rem 1rem;
+  background-color: rgb(23, 23, 23);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.links {
+  color: #fff;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0 1.5rem;
+  text-transform: uppercase;
+}
+
+.links a:link, a {
+  color: #fff;
+  text-decoration: none;
+}
