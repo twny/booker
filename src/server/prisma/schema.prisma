@@ -7,9 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// user signs up with clerk
-// we check if we ahve them in tyhe yusers table
-// if not we go through ahndle creation
 model users {
   id      Int    @id @default(autoincrement())
   clerkId String @unique
