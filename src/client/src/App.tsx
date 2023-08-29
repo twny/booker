@@ -5,7 +5,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
-import RouteGuard from "./auth/RautGuard";
+import RouteGuard from "./auth/RouteGuard";
 import Stripe from "./components/Stripe";
 
 const App: Component = () => {
