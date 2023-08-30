@@ -1,6 +1,6 @@
 import { createSignal, Show } from "solid-js";
 import styles from "../styles/Home.module.css";
-import booker from "../assets/booker.png";
+import booker from "../assets/bookah.png";
 import homies from "../assets/homies.png";
 import { useNavigate } from "@solidjs/router";
 import Header from "../components/Header";
