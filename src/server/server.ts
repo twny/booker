@@ -36,5 +36,5 @@ app.listen(port, () => {
 
 // Last route to server index.html needed for client routing
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../../dist/client/index.html'));
 });
