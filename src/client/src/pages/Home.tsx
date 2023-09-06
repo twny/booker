@@ -1,4 +1,5 @@
 import { createSignal, Show } from "solid-js";
+import CalendarComponent from "../components/Calendar";
 import styles from "../styles/Home.module.css";
 import booker from "../assets/bookah.png";
 import homies from "../assets/homies.png";
@@ -19,6 +20,7 @@ const Home = () => {
   return (
     <>
       <Header/>
+      <CalendarComponent />
       <div class={styles.Home}>
         <img src={booker} alt="Booker"/>
         <div>
