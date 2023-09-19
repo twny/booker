@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "ts-node server.ts",
+    "dev": "bun server.ts",
     "build": "tsc",
     "start": "node ../../dist/server/server.js",
     "test": "jest"
