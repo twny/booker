@@ -8,6 +8,7 @@ const CalendarComponent = () => {
     if (calendarEl()) {
       const calendar = new Calendar(calendarEl(), {
         initialView: 'dayGridMonth',
+        height: 500,
         events: [
           // Sample events
           { title: 'Event 1', start: '2023-09-06' },
